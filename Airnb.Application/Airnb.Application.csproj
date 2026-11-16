@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Usecases\Hosts\UpdateHost\**" />
+    <EmbeddedResource Remove="Usecases\Hosts\UpdateHost\**" />
+    <None Remove="Usecases\Hosts\UpdateHost\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.13" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.13" />
   </ItemGroup>
@@ -15,10 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Airnb.Domain\Airnb.Domain.csproj" />
     <ProjectReference Include="..\Airnb.Shared\Airnb.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Usecases\Hosts\UpdateHost\" />
   </ItemGroup>
 
 </Project>
