@@ -1,0 +1,32 @@
+# Kør:   docker compose pull && docker compose up -d
+# Stop:  docker compose down
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${SA_PASSWORD}
+    ports:
+      - "1433:1433"                    # så I også kan køre migrationer fra jeres egen PC
+    volumes:
+      - airnb-data:/var/opt/mssql      # data overlever, når containeren genstartes
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q \"SELECT 1\" || exit 1"]
+      interval: 10s
+      retries: 10
+
+  api:
+    image: ghcr.io/${GITHUB_OWNER}/airnb-api:latest   # imaget fra pipelinen
+    depends_on:
+      db:
+        condition: service_healthy     # vent til databasen er klar
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development              # så Swagger er slået til
+      ConnectionStrings__DefaultConnection: "Server=db;Database=AirnbDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
+      Jwt__Key: ${JWT_KEY}
+
+volumes:
+  airnb-data:

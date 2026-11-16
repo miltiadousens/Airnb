@@ -1,10 +1,12 @@
 using Airnb.API.ExceptionHandling;
 using Airnb.Application.DependencyInjection;
+using Airnb.Infrastructure.DataAccessLayer.DbContexts;
 using Airnb.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,6 +73,11 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AirnbDbContext>();
+    db.Database.Migrate();
+}
 app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
