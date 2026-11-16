@@ -5,11 +5,12 @@ using Airnb.Application.Usecases.Guests.UpdateGuest;
 using Airnb.Application.Usecases.Homes.CreateHome;
 using Airnb.Application.Usecases.Homes.DeleteHome;
 using Airnb.Application.Usecases.Homes.UpdateHome;
-using Airnb.Application.Usecases.Users.Login;
-using Airnb.Application.Usecases.Users.RefreshTokens;
-using Airnb.Application.Usecases.Users.RegisterUser;
 using Airnb.Application.Usecases.Hosts.CreateHost;
 using Airnb.Application.Usecases.Hosts.DeleteHost;
+using Airnb.Application.Usecases.Users.Login;
+using Airnb.Application.Usecases.Users.Logout;
+using Airnb.Application.Usecases.Users.RefreshTokens;
+using Airnb.Application.Usecases.Users.RegisterUser;
 using Airnb.Domain.DomainServices;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -40,6 +41,7 @@ namespace Airnb.Application.DependencyInjection
             services.AddScoped<ILoginUsecase, LoginUsecase>();
             services.AddScoped<IRegisterUserUsecase, RegisterUserUsecase>();
             services.AddScoped<IRefreshTokenUsecase, RefreshTokenUsecase>();
+            services.AddScoped<ILogoutUsecase, LogoutUsecase>();
 
             //Host Usecases
             services.AddScoped<IBecomeHostUsecase, BecomeHostUsecase>();

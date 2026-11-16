@@ -1,7 +1,23 @@
-html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+:root {
+    --forest: #1F3B33; /* mørkegrøn: venstre panel, tekst */
+    --cream: #F6F1E7; /* baggrund */
+    --clay: #B5452F; /* knapper, huset */
+    --clay-dark: #9A3A27; /* knap ved hover */
+    --honey: #E9B949; /* sol, vinduer */
+    --sand: #EAE3D4; /* fanernes baggrund */
+    --line: #D9D0BD; /* kanter på felter */
+    --muted: #5E6B64; /* sekundær tekst */
+    --error-bg: #F7E3DD;
+    --error: #8A3322;
 }
-
+html, body {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--cream);
+    color: var(--forest);
+}
+h1, h2 {
+    font-family: 'Fraunces', Georgia, serif;
+}
 h1:focus {
     outline: none;
 }

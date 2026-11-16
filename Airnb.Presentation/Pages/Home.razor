@@ -1,7 +1,23 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Airnb</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Forside</h1>
 
-Welcome to your new app.
+@* MIDLERTIDIG: test af token mod API'et *@
+<button type="button" class="btn btn-primary" @onclick="TestToken">Test token</button>
+
+@if (message is not null)
+{
+    <p>@message</p>
+}
+
+@if (claims is not null)
+{
+    <ul>
+        @foreach (var claim in claims)
+        {
+            <li><strong>@claim.Type</strong>: @claim.Value</li>
+        }
+    </ul>
+}

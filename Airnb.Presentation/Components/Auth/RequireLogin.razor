@@ -1,0 +1,9 @@
+﻿@* I stedet for at skrive login-tjekket på hver side laver vi én komponent, man lægger rundt om en sides indhold: 
+    <RequireLogin>
+    ...sidens indhold...
+    </RequireLogin>
+*@
+@if (Auth.IsLoggedIn)
+{
+    @ChildContent
+}

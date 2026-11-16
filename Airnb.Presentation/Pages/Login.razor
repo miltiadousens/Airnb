@@ -1,0 +1,19 @@
+﻿@page "/login"
+@layout AuthLayout
+
+<PageTitle>Log ind – Airnb</PageTitle>
+
+<div class="auth-page">
+    <AuthHero />
+
+    <main class="auth-main">
+        <div class="auth-content">
+            <h1>Log ind på Airnb</h1>
+            @if (showExpiredNotice)
+            {
+                <p class="notice" role="status">Din session er udløbet. Log ind igen for at fortsætte.</p>
+            }
+            <LoginForm IsBusy="isBusy" ErrorMessage="@errorMessage" OnSubmit="HandleLogin" />
+        </div>
+    </main>
+</div>

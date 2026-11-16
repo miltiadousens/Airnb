@@ -1,0 +1,551 @@
+﻿/* ---------- Layout ---------- */
+.hero {
+    width: 560px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 40px 56px 56px;
+    box-sizing: border-box;
+    background-color: var(--forest);
+    color: var(--cream);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cream);
+    text-decoration: none;
+}
+
+.brand-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.film {
+    position: relative;
+    width: 100%;
+    max-width: 448px;
+    aspect-ratio: 448 / 360;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid rgba(246, 241, 231, 0.35);
+}
+
+    .film svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+.captions {
+    position: absolute;
+    left: 24px;
+    bottom: 16px;
+    height: 28px;
+    width: 300px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+}
+
+    .captions span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .intro h1 {
+        margin: 0;
+        font-size: 52px;
+        line-height: 1.05;
+        letter-spacing: -1px;
+    }
+
+    .intro p {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #D9E2DC;
+    }
+
+@media (max-width: 900px) {
+    .hero {
+        width: 100%;
+    }
+}
+
+/* ---------- Filmens animationer (12 sekunders loop) ---------- */
+.sway {
+    animation: sway 4s ease-in-out infinite;
+    transform-origin: 50% 100%;
+    transform-box: fill-box;
+}
+
+@keyframes sway {
+    0%,100% {
+        transform: rotate(-4deg)
+    }
+
+    50% {
+        transform: rotate(4deg)
+    }
+}
+
+.f-sky {
+    animation: fSky 12s linear infinite;
+}
+
+@keyframes fSky {
+    0% {
+        fill: #1F3B33
+    }
+
+    8% {
+        fill: #F2C9A8
+    }
+
+    20% {
+        fill: #CFE3E8
+    }
+
+    64% {
+        fill: #CFE3E8
+    }
+
+    72% {
+        fill: #E7A07F
+    }
+
+    80% {
+        fill: #16302A
+    }
+
+    94% {
+        fill: #16302A
+    }
+
+    100% {
+        fill: #1F3B33
+    }
+}
+
+.f-sun {
+    animation: fSun 12s ease-in-out infinite;
+}
+
+@keyframes fSun {
+    0% {
+        transform: translateY(240px)
+    }
+
+    8% {
+        transform: translateY(130px)
+    }
+
+    20% {
+        transform: translateY(0)
+    }
+
+    62% {
+        transform: translateY(0)
+    }
+
+    76% {
+        transform: translateY(240px)
+    }
+
+    100% {
+        transform: translateY(240px)
+    }
+}
+
+.f-moon {
+    animation: fMoon 12s ease-in-out infinite;
+}
+
+@keyframes fMoon {
+    0%,74% {
+        opacity: 0
+    }
+
+    80% {
+        opacity: 1
+    }
+
+    94% {
+        opacity: 1
+    }
+
+    99%,100% {
+        opacity: 0
+    }
+}
+
+.f-star {
+    animation: fStar 12s linear infinite;
+}
+
+.f-star2 {
+    animation-delay: .3s;
+}
+
+.f-star3 {
+    animation-delay: .6s;
+}
+
+@keyframes fStar {
+    0%,76% {
+        opacity: 0
+    }
+
+    80% {
+        opacity: 1
+    }
+
+    84% {
+        opacity: .3
+    }
+
+    88% {
+        opacity: 1
+    }
+
+    92% {
+        opacity: .5
+    }
+
+    95% {
+        opacity: .9
+    }
+
+    99%,100% {
+        opacity: 0
+    }
+}
+
+.f-house {
+    animation: fHouse 12s ease-in-out infinite;
+}
+
+@keyframes fHouse {
+    0% {
+        transform: translateY(-340px);
+        opacity: 1
+    }
+
+    14% {
+        transform: translateY(-340px);
+        opacity: 1
+    }
+
+    20% {
+        transform: translateY(0);
+        opacity: 1
+    }
+
+    23% {
+        transform: translateY(-22px)
+    }
+
+    26% {
+        transform: translateY(0)
+    }
+
+    95% {
+        transform: translateY(0);
+        opacity: 1
+    }
+
+    99% {
+        transform: translateY(0);
+        opacity: 0
+    }
+
+    100% {
+        transform: translateY(-340px);
+        opacity: 0
+    }
+}
+
+.f-win {
+    animation: fWin 12s linear infinite;
+}
+
+@keyframes fWin {
+    0%,68% {
+        fill: #D8E3EA
+    }
+
+    74% {
+        fill: #E9B949
+    }
+
+    95% {
+        fill: #E9B949
+    }
+
+    100% {
+        fill: #D8E3EA
+    }
+}
+
+.f-door {
+    animation: fDoor 12s ease-in-out infinite;
+    transform-origin: 0 50%;
+    transform-box: fill-box;
+}
+
+@keyframes fDoor {
+    0%,48% {
+        transform: scaleX(1)
+    }
+
+    51% {
+        transform: scaleX(.15)
+    }
+
+    57% {
+        transform: scaleX(.15)
+    }
+
+    60%,100% {
+        transform: scaleX(1)
+    }
+}
+
+.f-case {
+    animation: fCase 12s ease-in-out infinite;
+}
+
+@keyframes fCase {
+    0%,40% {
+        transform: translateX(-190px);
+        opacity: 0
+    }
+
+    42% {
+        transform: translateX(-170px);
+        opacity: 1
+    }
+
+    52% {
+        transform: translateX(0);
+        opacity: 1
+    }
+
+    56% {
+        transform: translateX(12px);
+        opacity: 0
+    }
+
+    100% {
+        transform: translateX(12px);
+        opacity: 0
+    }
+}
+
+.f-pop1, .f-pop2, .f-pop3 {
+    transform-origin: 50% 100%;
+    transform-box: fill-box;
+}
+
+.f-pop1 {
+    animation: fPop1 12s ease-out infinite;
+}
+
+.f-pop2 {
+    animation: fPop2 12s ease-out infinite;
+}
+
+.f-pop3 {
+    animation: fPop3 12s ease-out infinite;
+}
+
+@keyframes fPop1 {
+    0%,28% {
+        transform: scale(0);
+        opacity: 1
+    }
+
+    31% {
+        transform: scale(1.2)
+    }
+
+    33% {
+        transform: scale(1)
+    }
+
+    95% {
+        transform: scale(1);
+        opacity: 1
+    }
+
+    99%,100% {
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+@keyframes fPop2 {
+    0%,32% {
+        transform: scale(0);
+        opacity: 1
+    }
+
+    35% {
+        transform: scale(1.2)
+    }
+
+    37% {
+        transform: scale(1)
+    }
+
+    95% {
+        transform: scale(1);
+        opacity: 1
+    }
+
+    99%,100% {
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+@keyframes fPop3 {
+    0%,36% {
+        transform: scale(0);
+        opacity: 1
+    }
+
+    39% {
+        transform: scale(1.2)
+    }
+
+    41% {
+        transform: scale(1)
+    }
+
+    95% {
+        transform: scale(1);
+        opacity: 1
+    }
+
+    99%,100% {
+        transform: scale(1);
+        opacity: 0
+    }
+}
+
+.f-cap1 {
+    animation: fCap1 12s ease-in-out infinite;
+}
+
+.f-cap2 {
+    animation: fCap2 12s ease-in-out infinite;
+}
+
+.f-cap3 {
+    animation: fCap3 12s ease-in-out infinite;
+}
+
+@keyframes fCap1 {
+    0%,4% {
+        opacity: 0;
+        transform: translateY(8px)
+    }
+
+    9% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    32% {
+        opacity: 1
+    }
+
+    36%,100% {
+        opacity: 0
+    }
+}
+
+@keyframes fCap2 {
+    0%,36% {
+        opacity: 0;
+        transform: translateY(8px)
+    }
+
+    41% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    62% {
+        opacity: 1
+    }
+
+    66%,100% {
+        opacity: 0
+    }
+}
+
+@keyframes fCap3 {
+    0%,68% {
+        opacity: 0;
+        transform: translateY(8px)
+    }
+
+    73% {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+    94% {
+        opacity: 1
+    }
+
+    98%,100% {
+        opacity: 0
+    }
+}
+
+.f-prog {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--honey);
+    transform-origin: 0 50%;
+    animation: fProg 12s linear infinite;
+}
+
+@keyframes fProg {
+    from {
+        transform: scaleX(0)
+    }
+
+    to {
+        transform: scaleX(1)
+    }
+}
+
+/* Respektér brugere, der har slået animationer fra i styresystemet */
+@media (prefers-reduced-motion: reduce) {
+    .film * {
+        animation: none !important;
+    }
+}

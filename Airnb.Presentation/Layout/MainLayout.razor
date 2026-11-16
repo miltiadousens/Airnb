@@ -5,8 +5,19 @@
     </div>
 
     <main>
-        <div class="top-row px-4">
+        @*<div class="top-row px-4">
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>*@
+        <div class="top-row px-4">  @*laver en knap øverst til venstre på startsiden med log ind/log ud funktionalitet*@
+            @if (IsLoggedIn)
+            {
+                <span>Du er logget ind (til kl. @LoggedInUntil)</span>
+                <button type="button" class="btn btn-link" @onclick="Logout">Log ud</button>
+            }
+            else
+            {
+                <a href="login">Log ind</a>
+            }
         </div>
 
         <article class="content px-4">

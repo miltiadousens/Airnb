@@ -1,0 +1,126 @@
+﻿/* <form> renderes af EditForm (en anden komponent) → ::deep */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    /* nulstil browserens standardudseende for fieldset */
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+/* .field, label, .password-wrap osv. står i MIN markup → ingen ::deep */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .field label {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+/* <input> renderes af InputText → ::deep */
+.login-form ::deep input {
+    width: 100%;
+    box-sizing: border-box;
+    height: 52px;
+    padding: 0 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--forest);
+    outline: none;
+}
+
+    .login-form ::deep input:focus {
+        border-color: var(--forest);
+    }
+
+    /* Blazor sætter selv klasserne .invalid og .valid.modified på felterne */
+    .login-form ::deep input.invalid {
+        border-color: var(--clay);
+        outline: none;
+    }
+
+    .login-form ::deep input.valid.modified {
+        outline: none;
+    }
+
+/* Fejlteksten renderes af ValidationMessage → ::deep */
+.login-form ::deep .validation-message {
+    font-size: 14px;
+    color: var(--error);
+}
+
+.password-wrap {
+    position: relative;
+    display: flex;
+}
+
+    .password-wrap ::deep input {
+        padding-right: 64px; /* plads til øje-knappen */
+    }
+
+/* Skjul Edges indbyggede "vis adgangskode"-knap – vi har vores egen */
+.login-form ::deep input::-ms-reveal,
+.login-form ::deep input::-ms-clear {
+    display: none;
+}
+
+.toggle-pw {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+    .toggle-pw:hover {
+        background-color: var(--sand);
+    }
+
+.error-box {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background-color: var(--error-bg);
+    color: var(--error);
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.submit {
+    height: 58px;
+    border: none;
+    border-radius: 18px;
+    background-color: var(--clay);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s ease, background-color .2s ease;
+}
+
+    .submit:hover:not(:disabled) {
+        transform: scale(1.02);
+        background-color: var(--clay-dark);
+    }
+
+    .submit:disabled {
+        opacity: .7;
+        cursor: wait;
+    }

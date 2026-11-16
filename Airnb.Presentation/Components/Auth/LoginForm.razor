@@ -1,0 +1,34 @@
+﻿<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <fieldset class="login-form" disabled="@IsBusy">
+        <div class="field">
+            <label for="login-email">E-mail</label>
+            <InputText id="login-email" @bind-Value="model.Email" type="email"
+                       placeholder="navn@eksempel.dk" autocomplete="email" />
+            <ValidationMessage For="() => model.Email" />
+        </div>
+
+        <div class="field">
+            <label for="login-password">Adgangskode</label>
+            <div class="password-wrap">
+                <InputText id="login-password" @bind-Value="model.Password"
+                           type="@PasswordInputType" autocomplete="current-password" />
+                <button type="button" class="toggle-pw" @onclick="TogglePassword" aria-label="@ToggleLabel">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F3B33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12 C5 6 9 4 12 4 C15 4 19 6 22 12 C19 18 15 20 12 20 C9 20 5 18 2 12 Z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </button>
+            </div>
+            <ValidationMessage For="() => model.Password" />
+        </div>
+
+        @if (HasError)
+        {
+            <p class="error-box" role="alert">@ErrorMessage</p>
+        }
+
+        <button type="submit" class="submit">@SubmitLabel</button>
+    </fieldset>
+</EditForm>

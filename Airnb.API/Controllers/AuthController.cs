@@ -1,4 +1,5 @@
 ﻿using Airnb.Application.Usecases.Users.Login;
+using Airnb.Application.Usecases.Users.Logout;
 using Airnb.Application.Usecases.Users.RefreshTokens;
 using Airnb.Application.Usecases.Users.RegisterUser;
 using Airnb.Shared.Auth.DTO;
@@ -17,12 +18,14 @@ namespace Airnb.API.Controllers
         private readonly ILoginUsecase _login;
         private readonly IRefreshTokenUsecase _refresh;
         private readonly IRegisterUserUsecase _register;
+        private readonly ILogoutUsecase _logout;
 
-        public AuthController(ILoginUsecase login, IRefreshTokenUsecase refresh, IRegisterUserUsecase register)
+        public AuthController(ILoginUsecase login,  IRefreshTokenUsecase refresh, IRegisterUserUsecase register, ILogoutUsecase logout)
         {
             _login = login;
             _refresh = refresh;
             _register = register;
+            _logout = logout;
         }
         [AllowAnonymous]
         [HttpPost("register")]
@@ -64,6 +67,17 @@ namespace Airnb.API.Controllers
         public IActionResult Me()
         {
             return Ok(User.Claims.Select(c => new { c.Type, c.Value }));
+        }
+
+        [AllowAnonymous]
+        [HttpPost("logout")]
+        [EndpointSummary("Logger ud og spærrer refresh tokenet")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Logout(LogoutRequest request, CancellationToken ct)
+        {
+            await _logout.ExecuteAsync(request, ct);
+            return NoContent();
         }
     }
 }
