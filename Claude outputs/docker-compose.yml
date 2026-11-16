@@ -18,6 +18,8 @@ services:
 
   api:
     image: ghcr.io/${GITHUB_OWNER}/airnb-api:latest   # imaget fra pipelinen
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"  # Watchtower må opdatere denne
     depends_on:
       db:
         condition: service_healthy     # vent til databasen er klar
@@ -27,6 +29,17 @@ services:
       ASPNETCORE_ENVIRONMENT: Development              # så Swagger er slået til
       ConnectionStrings__DefaultConnection: "Server=db;Database=AirnbDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True"
       Jwt__Key: ${JWT_KEY}
+
+  watchtower:
+    image: nickfedor/watchtower        # vedligeholdt fork af containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      WATCHTOWER_LABEL_ENABLE: "true"  # kun containere med labelen (altså api, ikke db)
+      WATCHTOWER_POLL_INTERVAL: "60"   # tjek ghcr.io hvert minut
+      WATCHTOWER_CLEANUP: "true"       # slet gamle images efter opdatering
+      REPO_USER: ${GITHUB_OWNER}       # login til ghcr.io (kan fjernes, hvis pakken er offentlig)
+      REPO_PASS: ${GHCR_TOKEN}
 
 volumes:
   airnb-data:
