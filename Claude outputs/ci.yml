@@ -1,8 +1,10 @@
-name: CI-CD-Airnb
+name: CI-Airnb
 
 on:
   workflow_dispatch:
   push:
+    branches: ["master"]
+  pull_request:
     branches: ["master"]
 
 permissions:
@@ -13,7 +15,6 @@ env:
   SOLUTION_PATH: "Airnb.slnx"
 
 jobs:
-  # ── CI: byg og test ──
   build-and-test:
     name: Build-and-Test
     runs-on: ubuntu-latest
@@ -35,37 +36,3 @@ jobs:
 
       - name: Test
         run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --verbosity normal
-
-  # ── CD: byg Docker-image og læg det på GitHub Container Registry ──
-  docker:
-    name: Build-and-Push-Image
-    needs: build-and-test              # kører kun, hvis alle tests er grønne
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write                  # må lægge images på ghcr.io
-
-    steps:
-      - name: Get Code
-        uses: actions/checkout@v5
-
-      # ghcr.io kræver små bogstaver i image-navnet
-      - name: Set image name
-        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/airnb-api" >> "$GITHUB_ENV"
-
-      - name: Log in to GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .                   # roden af solution'en, som Dockerfilen forventer
-          file: Airnb.API/Dockerfile
-          push: true
-          tags: |
-            ${{ env.IMAGE }}:latest
-            ${{ env.IMAGE }}:${{ github.sha }}

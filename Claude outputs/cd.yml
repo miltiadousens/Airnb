@@ -1,0 +1,44 @@
+name: CD-Airnb
+
+on:
+  # Start, når CI-workflowet er færdigt. Navnet skal matche "name:" i ci.yml præcist.
+  workflow_run:
+    workflows: ["CI-Airnb"]
+    types: [completed]
+    branches: ["master"]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-push-image:
+    name: Build-and-Push-Image
+    # Kun hvis CI var grøn, og kun for push (ikke pull requests)
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}   # præcis det commit, som CI testede
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Airnb.API/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/miltiadousens/airnb-api:latest
+            ghcr.io/miltiadousens/airnb-api:${{ github.event.workflow_run.head_sha }}

@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: ["master"]
+  pull_request:
+    branches: ["master"]
 
 permissions:
   contents: read
 
 env:
   DOTNET_VERSION: "10.0.x"
-  SOLUTION_PATH: "Airnb.slnx"      # ← den eneste reelle ændring
+  SOLUTION_PATH: "Airnb.slnx"
 
 jobs:
   build-and-test:
@@ -34,22 +36,3 @@ jobs:
 
       - name: Test
         run: dotnet test ${{ env.SOLUTION_PATH }} --configuration Release --no-build --verbosity normal
-  docker:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v5
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: Airnb.API/Dockerfile
-          push: true
-          tags: ghcr.io/miltiadousens/airnb-api:latest
